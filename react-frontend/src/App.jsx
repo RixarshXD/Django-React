@@ -33,7 +33,7 @@ function App() {
 
           {/* ruta de los doctores */}
           <Route path="/doctores" element={<DoctorPage />} />
-          <Route path="/doctores-registrar" element={<DoctorPage />} />
+          <Route path="/doctores-registrar" element={<DoctorForm />} />
 
           {/* ruta de las citas */}
           <Route path="/citas" element={<CitaPage />} />
