@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { getCitas } from '../../api/cita.api';
+import { getCitas, createCita } from '../../api/cita.api';
+import { useNavigate } from 'react-router-dom';
 
 const CitaForm = () => {
   const [citas, setCitas] = useState([]);
@@ -20,9 +21,12 @@ const CitaForm = () => {
     formState: { errors },
   } = useForm();
 
+  const navigate = useNavigate();
+
   // onSubmit para enviar los datos del formulario
-  const onSubmit = handleSubmit((data) => {
-    console.log(data);
+  const onSubmit = handleSubmit(async (data) => {
+    await createCita(data);
+    navigate('/citas');
   });
 
   return (

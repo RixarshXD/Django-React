@@ -30,14 +30,17 @@ function App() {
           {/* ruta de los pacientes */}
           <Route path="/pacientes" element={<PacientePage />} />
           <Route path="/pacientes-registrar" element={<PacienteForm />} />
+          <Route path="/pacientes-modify/:id" element={<PacienteForm />} />
 
           {/* ruta de los doctores */}
           <Route path="/doctores" element={<DoctorPage />} />
           <Route path="/doctores-registrar" element={<DoctorForm />} />
+          <Route path="/doctores-modify/:id" element={<DoctorForm />} />
 
           {/* ruta de las citas */}
           <Route path="/citas" element={<CitaPage />} />
           <Route path="/citas-registrar" element={<CitaForm />} />
+          <Route path="/citas-modify/:id" element={<CitaForm />} />
         </Routes>
       </BrowserRouter>
     </>

@@ -1,5 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { createDoctor } from '../../api/doctor.api';
+import { useNavigate } from 'react-router-dom';
 
 const DoctorForm = () => {
   const {
@@ -8,8 +10,11 @@ const DoctorForm = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = handleSubmit((data) => {
-    console.log(data);
+  const navigate = useNavigate();
+
+  const onSubmit = handleSubmit(async (data) => {
+    await createDoctor(data);
+    navigate('/doctores');
   });
 
   return (

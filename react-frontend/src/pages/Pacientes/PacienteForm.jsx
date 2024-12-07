@@ -1,5 +1,12 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import {
+  createPaciente,
+  updatePaciente,
+  getPaciente,
+} from '../../api/paciente.api';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 
 // Componente para el formulario de registro de pacientes
 const PacienteForm = () => {
@@ -7,12 +14,40 @@ const PacienteForm = () => {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm();
 
+  const params = useParams();
+  const navigate = useNavigate();
+
   // onSubmit para enviar los datos del formulario
-  const onSubmit = handleSubmit((data) => {
-    console.log(data);
+  const onSubmit = handleSubmit(async (data) => {
+    // si el id existe, se actualiza el paciente
+    if (params.id) {
+      await updatePaciente(params.id, data);
+      navigate('/pacientes');
+      return;
+    }
+    await createPaciente(data);
+    navigate('/pacientes');
   });
+
+  useEffect(() => {
+    // si el id existe, se obtienn los datos del paciente
+    async function getPacienteById() {
+      if (params.id) {
+        const res = await getPaciente(params.id);
+        setValue('nombre', res.data.nombre);
+        setValue('apellido', res.data.apellido);
+        setValue('rut', res.data.rut);
+        setValue('fechaNacimiento', res.data.fechaNacimiento);
+        setValue('correo', res.data.correo);
+
+        console.log(res);
+      }
+    }
+    getPacienteById();
+  }, []);
 
   return (
     <>

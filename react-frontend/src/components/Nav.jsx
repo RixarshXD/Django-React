@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom';
+import { Navbar } from 'flowbite-react';
 
 import React from 'react';
 
 const Nav = () => {
   return (
     <>
-      <div>
+      <Navbar className="bg-zinc-800">
         <Link to="/Inicio">Inicio</Link>
         {/* pacientes */}
         <Link to="/pacientes">Ver Listado de Pacientes</Link>
@@ -18,7 +19,7 @@ const Nav = () => {
         {/* citas */}
         <Link to="/citas">Ver Citas</Link>
         <Link to="/citas-registrar">Registrar Cita</Link>
-      </div>
+      </Navbar>
     </>
   );
 };
