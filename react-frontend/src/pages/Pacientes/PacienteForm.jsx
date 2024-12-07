@@ -7,6 +7,7 @@ import {
 } from '../../api/paciente.api';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import { Card, Label, TextInput, Button } from 'flowbite-react';
 
 // Componente para el formulario de registro de pacientes
 const PacienteForm = () => {
@@ -50,48 +51,83 @@ const PacienteForm = () => {
   }, []);
 
   return (
-    <>
-      <form onSubmit={onSubmit}>
-        <input
-          type="text"
-          placeholder="nombre"
-          // register para registrar los campos del formulario
-          {...register('nombre', { required: true })}
-        />
-        {/* mensaje de error */}
-        {errors.nombre && <span>Este campo es requerido</span>}
+    <div className="min-h-screenp-4">
+      <Card className="max-w-xl mx-auto">
+        <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
+          {params.id ? 'Modificar Paciente' : 'Nuevo Paciente'}
+        </h2>
+        <form onSubmit={onSubmit} className="space-y-4">
+          <div className="mb-4">
+            <Label htmlFor="nombre" value="Nombre" />
+            <TextInput
+              id="nombre"
+              type="text"
+              {...register('nombre', { required: true })}
+              color={errors.nombre ? 'failure' : 'gray'}
+            />
+            {errors.nombre && (
+              <span className="text-red-500 text-sm">
+                Este campo es requerido
+              </span>
+            )}
+          </div>
 
-        <input
-          type="text"
-          placeholder="apellido"
-          {...register('apellido', { required: true })}
-        />
-        {errors.apellido && <span>Este campo es requerido</span>}
+          <div className="mb-4">
+            <Label htmlFor="apellido" value="Apellido" />
+            <TextInput
+              id="apellido"
+              type="text"
+              {...register('apellido', { required: true })}
+              color={errors.apellido ? 'failure' : 'gray'}
+            />
+            {errors.apellido && (
+              <span className="text-red-500 text-sm">
+                Este campo es requerido
+              </span>
+            )}
+          </div>
 
-        <input
-          type="number"
-          placeholder="rut"
-          {...register('rut', { required: true })}
-        />
-        {errors.rut && <span>Este campo es requerido</span>}
+          <div className="mb-4">
+            <Label htmlFor="rut" value="RUT" />
+            <TextInput
+              id="rut"
+              type="text"
+              {...register('rut', { required: true })}
+              color={errors.rut ? 'failure' : 'gray'}
+            />
+            {errors.rut && (
+              <span className="text-red-500 text-sm">
+                Este campo es requerido
+              </span>
+            )}
+          </div>
 
-        <input
-          type="date"
-          placeholder="Fecha de Nacimiento"
-          {...register('fechaNacimiento', { required: true })}
-        />
-        {errors.fechaNacimiento && <span>Este campo es requerido</span>}
+          <div className="mb-4">
+            <Label htmlFor="fechaNacimiento" value="Fecha de Nacimiento" />
+            <TextInput
+              id="fechaNacimiento"
+              type="date"
+              {...register('fechaNacimiento', { required: true })}
+              color={errors.fechaNacimiento ? 'failure' : 'gray'}
+            />
+            {errors.fechaNacimiento && (
+              <span className="text-red-500 text-sm">
+                Este campo es requerido
+              </span>
+            )}
+          </div>
 
-        <input
-          type="email"
-          placeholder="correo"
-          {...register('correo', { required: true })}
-        />
-        {errors.correo && <span>Este campo es requerido</span>}
-
-        <button>Guardar</button>
-      </form>
-    </>
+          <div className="flex justify-end gap-2 mt-6">
+            <Button color="gray" onClick={() => navigate('/pacientes')}>
+              Cancelar
+            </Button>
+            <Button type="submit">
+              {params.id ? 'Actualizar' : 'Guardar'}
+            </Button>
+          </div>
+        </form>
+      </Card>
+    </div>
   );
 };
 

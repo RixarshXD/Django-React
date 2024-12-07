@@ -1,37 +1,57 @@
 import React from 'react';
-import { Table } from 'flowbite-react';
+import { Card, Button } from 'flowbite-react';
+import { useNavigate } from 'react-router-dom';
+import { deleteDoctor } from '../../api/doctor.api';
 
 const DoctorCard = ({ doctor }) => {
+  const navigate = useNavigate();
+
   return (
-    <>
-      <div className="overflow-x-auto">
-        <Table>
-          <Table.Head>
-            <Table.HeadCell>Nombre</Table.HeadCell>
-            <Table.HeadCell>Apellido</Table.HeadCell>
-            <Table.HeadCell>Rut</Table.HeadCell>
-            <Table.HeadCell>Fecha de nacimiento</Table.HeadCell>
-            <Table.HeadCell>Especialidad</Table.HeadCell>
-            <Table.HeadCell>Correo</Table.HeadCell>
-          </Table.Head>
-
-          <Table.Body className="divide-y">
-            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-              <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                {doctor.nombre}
-              </Table.Cell>
-              <Table.Cell>{doctor.apellido}</Table.Cell>
-              <Table.Cell>{doctor.rut}</Table.Cell>
-              <Table.Cell>{doctor.fechaNacimiento}</Table.Cell>
-              <Table.Cell>{doctor.especialidad}</Table.Cell>
-              <Table.Cell>{doctor.correo}</Table.Cell>
-            </Table.Row>
-          </Table.Body>
-        </Table>
-
-        <br />
-      </div>
-    </>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+      <Card className="max-w-sm h-full">
+        <div className="space-y-2">
+          <h5 className="text-lg font-semibold text-gray-900 dark:text-white">
+            Dr. {doctor.nombre} {doctor.apellido}
+          </h5>
+          <div className="text-sm space-y-1 text-gray-700 dark:text-gray-400">
+            <p>
+              <strong>Especialidad:</strong> {doctor.especialidad}
+            </p>
+            <p>
+              <strong>Rut:</strong> {doctor.rut}
+            </p>
+            <p>
+              <strong>Nacimiento:</strong> {doctor.fechaNacimiento}
+            </p>
+            <p>
+              <strong>Correo:</strong> {doctor.correo}
+            </p>
+          </div>
+        </div>
+        <div className="flex justify-end gap-2 mt-2">
+          <Button
+            size="xs"
+            color="success"
+            onClick={() => navigate(`/doctores-modify/${doctor.id}`)}
+          >
+            Modificar
+          </Button>
+          <Button
+            size="xs"
+            color="failure"
+            onClick={async () => {
+              if (window.confirm('¿Estás seguro de eliminar este Doctor?')) {
+                await deleteDoctor(doctor.id);
+                navigate('/doctores');
+                window.location.reload();
+              }
+            }}
+          >
+            Eliminar
+          </Button>
+        </div>
+      </Card>
+    </div>
   );
 };
 

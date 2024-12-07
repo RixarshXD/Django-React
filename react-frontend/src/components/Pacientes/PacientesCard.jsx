@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Button } from 'flowbite-react';
+import { Card, Button } from 'flowbite-react';
 import { useNavigate } from 'react-router-dom';
 import { deletePaciente } from '../../api/paciente.api';
 
@@ -7,64 +7,48 @@ const PacientesCard = ({ paciente }) => {
   const navigate = useNavigate();
 
   return (
-    <>
-      <div className="overflow-x-auto ">
-        <Table>
-          <Table.Head>
-            <Table.HeadCell>Nombre</Table.HeadCell>
-            <Table.HeadCell>Apellido</Table.HeadCell>
-            <Table.HeadCell>Rut</Table.HeadCell>
-            <Table.HeadCell>Fecha de nacimiento</Table.HeadCell>
-            <Table.HeadCell>Correo</Table.HeadCell>
-            <Table.HeadCell></Table.HeadCell>
-            <Table.HeadCell></Table.HeadCell>
-          </Table.Head>
-
-          <Table.Body className="divide-y">
-            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-              <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                {paciente.nombre}
-              </Table.Cell>
-              <Table.Cell>{paciente.apellido}</Table.Cell>
-              <Table.Cell>{paciente.rut}</Table.Cell>
-              <Table.Cell>{paciente.fechaNacimiento}</Table.Cell>
-              <Table.Cell>{paciente.correo}</Table.Cell>
-              <Table.Cell>
-                <Button
-                  color="success"
-                  size="sm"
-                  onClick={() => navigate(`/pacientes-modify/${paciente.id}`)}
-                >
-                  Modificar
-                </Button>
-              </Table.Cell>
-              <Table.Cell>
-                {/* boton para eliminar al paciente y refrescar la pagina */}
-                <Button
-                  color="failure"
-                  size="sm"
-                  onClick={async () => {
-                    const res = window.confirm(
-                      '¿Estás seguro de eliminar este paciente?'
-                    );
-                    if (res) {
-                      await deletePaciente(paciente.id);
-                      navigate('/pacientes');
-                      window.location.reload();
-                      alert('Paciente eliminado');
-                    }
-                  }}
-                >
-                  Eliminar
-                </Button>
-              </Table.Cell>
-            </Table.Row>
-          </Table.Body>
-        </Table>
-
-        <br />
-      </div>
-    </>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+      <Card className="max-w-sm h-full">
+        <div className="space-y-2">
+          <h5 className="text-lg font-semibold text-gray-900 dark:text-white">
+            {paciente.nombre} {paciente.apellido}
+          </h5>
+          <div className="text-sm space-y-1 text-gray-700 dark:text-gray-400">
+            <p>
+              <strong>Rut:</strong> {paciente.rut}
+            </p>
+            <p>
+              <strong>Nacimiento:</strong> {paciente.fechaNacimiento}
+            </p>
+            <p>
+              <strong>Correo:</strong> {paciente.correo}
+            </p>
+          </div>
+        </div>
+        <div className="flex justify-end gap-2 mt-2">
+          <Button
+            size="xs"
+            color="success"
+            onClick={() => navigate(`/pacientes-modify/${paciente.id}`)}
+          >
+            Modificar
+          </Button>
+          <Button
+            size="xs"
+            color="failure"
+            onClick={async () => {
+              if (window.confirm('¿Estás seguro de eliminar este paciente?')) {
+                await deletePaciente(paciente.id);
+                navigate('/pacientes');
+                window.location.reload();
+              }
+            }}
+          >
+            Eliminar
+          </Button>
+        </div>
+      </Card>
+    </div>
   );
 };
 
