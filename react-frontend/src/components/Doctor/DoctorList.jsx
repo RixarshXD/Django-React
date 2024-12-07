@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getDoctor } from '../../api/doctor.api';
+import { getDoctores } from '../../api/doctor.api';
 import DoctorCard from './DoctorCard';
 
 const PacientesList = () => {
@@ -7,7 +7,7 @@ const PacientesList = () => {
 
   useEffect(() => {
     async function getAllDoctor() {
-      const res = await getDoctor();
+      const res = await getDoctores();
       console.log(res.data);
       setDoctor(res.data);
     }
