@@ -117,6 +117,21 @@ const PacienteForm = () => {
             )}
           </div>
 
+          <div className="mb-4">
+            <Label htmlFor="correo" value="Correo" />
+            <TextInput
+              id="correo"
+              type="email"
+              {...register('correo', { required: true })}
+              color={errors.correo ? 'failure' : 'gray'}
+            />
+            {errors.correo && (
+              <span className="text-red-500 text-sm">
+                Este campo es requerido
+              </span>
+            )}
+          </div>
+
           <div className="flex justify-end gap-2 mt-6">
             <Button color="gray" onClick={() => navigate('/pacientes')}>
               Cancelar

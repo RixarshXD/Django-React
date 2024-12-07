@@ -5,21 +5,21 @@ const doctorApi = axios.create({
 });
 
 export const getDoctores = async () => {
-  return doctorApi.get('/');
+  return await doctorApi.get('/');
 };
 
 export const getDoctor = async (id) => {
-  return doctorApi.get(`/${id}/`);
+  return await doctorApi.get(`/${id}/`);
 };
 
 export const createDoctor = async (doctor) => {
-  return doctorApi.post('/', doctor);
+  return await doctorApi.post('/', doctor);
 };
 
 export const deleteDoctor = async (id) => {
-  return doctorApi.delete(`/${id}/`);
+  return await doctorApi.delete(`/${id}/`);
 };
 
 export const updateDoctor = async (id, doctor) => {
-  return doctorApi.put(`/${id}/`, doctor);
+  return await doctorApi.put(`/${id}/`, doctor);
 };

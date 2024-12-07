@@ -30,7 +30,7 @@ class Pacientes(models.Model):
    
 # citas medicas
 class Cita(models.Model):
-    fechaCita = models.DateTimeField()
+    fechaCita = models.DateField()
     diagnostico = models.CharField(max_length=50)
     horaCita = models.TimeField()
     motivo = models.CharField(max_length=50)

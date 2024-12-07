@@ -5,21 +5,21 @@ const pacienteApi = axios.create({
 });
 
 export const getPacientes = async () => {
-  return pacienteApi.get('/');
+  return await pacienteApi.get('/');
 };
 
 export const getPaciente = async (id) => {
-  return pacienteApi.get(`/${id}/`);
+  return await pacienteApi.get(`/${id}/`);
 };
 
 export const createPaciente = async (paciente) => {
-  return pacienteApi.post('/', paciente);
+  return await pacienteApi.post('/', paciente);
 };
 
 export const deletePaciente = async (id) => {
-  return pacienteApi.delete(`/${id}/`);
+  return await pacienteApi.delete(`/${id}/`);
 };
 
 export const updatePaciente = async (id, paciente) => {
-  return pacienteApi.put(`/${id}/`, paciente);
+  return await pacienteApi.put(`/${id}/`, paciente);
 };

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { getCitas, createCita, getCita } from '../../api/cita.api';
+import { getCitas, createCita, getCita, updateCita } from '../../api/cita.api';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getDoctores } from '../../api/doctor.api';
 import { getPacientes } from '../../api/paciente.api';
@@ -50,14 +50,22 @@ const CitaForm = () => {
 
   // onSubmit para enviar los datos del formulario
   const onSubmit = handleSubmit(async (data) => {
-    // si el id existe, se actualiza la cita
-    if (params.id) {
-      await createCita(params.id, data);
+    const citaData = {
+      ...data,
+      paciente: data.paciente_nombre,
+      doctor: data.doctor_nombre,
+    };
+
+    try {
+      if (params.id) {
+        await updateCita(params.id, citaData);
+      } else {
+        await createCita(citaData);
+      }
       navigate('/citas');
-      return;
+    } catch (error) {
+      console.error('Error:', error.response?.data || error.message);
     }
-    await createCita(data);
-    navigate('/citas');
   });
 
   useEffect(() => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Button } from 'flowbite-react';
-import { deleteCita } from '../../api/cita.api';
 import { useNavigate } from 'react-router-dom';
+import { deleteCita } from '../../api/cita.api';
 
 const CitasCard = ({ cita }) => {
   const navigate = useNavigate();
@@ -11,9 +11,15 @@ const CitasCard = ({ cita }) => {
       <Card className="max-w-sm h-full">
         <div className="space-y-2">
           <h5 className="text-lg font-semibold text-gray-900 dark:text-white">
-            {cita.paciente_nombre}
+            Cita: {cita.id}
           </h5>
           <div className="text-sm space-y-1 text-gray-700 dark:text-gray-400">
+            <p>
+              <strong>Paciente:</strong> {cita.paciente_nombre}
+            </p>
+            <p>
+              <strong>Doctor:</strong> Dr. {cita.doctor_nombre}
+            </p>
             <p>
               <strong>Fecha:</strong> {cita.fechaCita}
             </p>
@@ -21,13 +27,13 @@ const CitasCard = ({ cita }) => {
               <strong>Hora:</strong> {cita.horaCita}
             </p>
             <p>
-              <strong>Doctor:</strong> {cita.doctor_nombre}
-            </p>
-            <p>
-              <strong>Diagnóstico:</strong> {cita.diagnostico}
+              <strong>Diagnostico:</strong> {cita.diagnostico}
             </p>
             <p>
               <strong>Motivo:</strong> {cita.motivo}
+            </p>
+            <p>
+              <strong>Observacion:</strong> {cita.observacion}
             </p>
           </div>
         </div>
@@ -43,7 +49,7 @@ const CitasCard = ({ cita }) => {
             size="xs"
             color="failure"
             onClick={async () => {
-              if (window.confirm('¿Estás seguro de eliminar esta cita?')) {
+              if (window.confirm('¿Estás seguro de eliminar esta Cita?')) {
                 await deleteCita(cita.id);
                 navigate('/citas');
                 window.location.reload();

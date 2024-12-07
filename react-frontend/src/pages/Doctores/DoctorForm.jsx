@@ -96,6 +96,21 @@ const DoctorForm = () => {
           </div>
 
           <div className="mb-4">
+            <Label htmlFor="fechaNacimiento" value="Fecha de Nacimiento" />
+            <TextInput
+              id="fechaNacimiento"
+              type="date"
+              {...register('fechaNacimiento', { required: true })}
+              color={errors.fechaNacimiento ? 'failure' : 'gray'}
+            />
+            {errors.fechaNacimiento && (
+              <span className="text-red-500 text-sm">
+                Este campo es requerido
+              </span>
+            )}
+          </div>
+
+          <div className="mb-4">
             <Label htmlFor="especialidad" value="Especialidad" />
             <TextInput
               id="especialidad"
@@ -104,6 +119,21 @@ const DoctorForm = () => {
               color={errors.especialidad ? 'failure' : 'gray'}
             />
             {errors.especialidad && (
+              <span className="text-red-500 text-sm">
+                Este campo es requerido
+              </span>
+            )}
+          </div>
+
+          <div className="mb-4">
+            <Label htmlFor="correo" value="correo" />
+            <TextInput
+              id="correo"
+              type="email"
+              {...register('correo', { required: true })}
+              color={errors.correo ? 'failure' : 'gray'}
+            />
+            {errors.correo && (
               <span className="text-red-500 text-sm">
                 Este campo es requerido
               </span>

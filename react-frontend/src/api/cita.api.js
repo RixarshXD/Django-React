@@ -5,21 +5,21 @@ const citaApi = axios.create({
 });
 
 export const getCitas = async () => {
-  return citaApi.get('/');
+  return await citaApi.get('/');
 };
 
 export const getCita = async (id) => {
-  return citaApi.get(`/${id}/`);
+  return await citaApi.get(`/${id}/`);
 };
 
 export const createCita = async (cita) => {
-  return citaApi.post('/', cita);
+  return await citaApi.post('/', cita);
 };
 
 export const deleteCita = async (id) => {
-  return citaApi.delete(`/${id}/`);
+  return await citaApi.delete(`/${id}/`);
 };
 
 export const updateCita = async (id, cita) => {
-  return citaApi.put(`/${id}/`, cita);
+  return await citaApi.put(`/${id}/`, cita);
 };
